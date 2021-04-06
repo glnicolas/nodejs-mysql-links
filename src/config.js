@@ -12,5 +12,5 @@ export default {
     password: process.env.DATABASE_PASSWORD || "clan.3cp",
     database: process.env.DATABASE_NAME || "dblinks",
   },
-  port: process.env.PORT || 4000,
+  port: process.env.PORT || 3000,
 };

@@ -15,6 +15,7 @@ const MySQLStore = expressMySQLSession(session);
 const { database, port } = config;
 const app = express();
 
+console.log(database);
 // Settings
 app.set("port", port);
 app.set("views", path.join(__dirname, "views"));
@@ -40,7 +41,7 @@ app.use(
     secret: "faztmysqlnodemysql",
     resave: false,
     saveUninitialized: false,
-    store: new MySQLStore(database),
+    
   })
 );
 app.use(flash());
