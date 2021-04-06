@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js --exec babel-node",
-    "start": "node dist/index.js",
+    "start": "babel src -d dist && node dist/index.js",
     "compile": "babel src -d dist",
     "clean": "rimraf dist",
     "copyfiles": "ncp ./src/views ./dist/views && ncp ./src/public ./dist/public",
