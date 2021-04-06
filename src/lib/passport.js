@@ -14,7 +14,8 @@ passport.use(
     },
     async (req, username, password, done) => {
       try{
-        const rows = await pool.query("SELECT * FROM users WHERE username = ?", [
+        console.log('after query');
+        const rows =  pool.query("SELECT * FROM users WHERE username = ?", [
           username,
         ]);
         console.log('DB query ok');
