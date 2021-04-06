@@ -13,27 +13,37 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, username, password, done) => {
-      const rows = await pool.query("SELECT * FROM users WHERE username = ?", [
-        username,
-      ]);
-      if (rows.length > 0) {
-        const user = rows[0];
-        const validPassword = await helpers.matchPassword(
-          password,
-          user.password
-        );
-        if (validPassword) {
-          done(null, user, req.flash("success", "Welcome " + user.username));
+      try{
+        const rows = await pool.query("SELECT * FROM users WHERE username = ?", [
+          username,
+        ]);
+        if (rows.length > 0) {
+          const user = rows[0];
+          const validPassword = await helpers.matchPassword(
+            password,
+            user.password
+          );
+          if (validPassword) {
+            done(null, user, req.flash("success", "Welcome " + user.username));
+          } else {
+            done(null, false, req.flash("message", "Incorrect Password"));
+          }
         } else {
-          done(null, false, req.flash("message", "Incorrect Password"));
+          return done(
+            null,
+            false,
+            req.flash("message", "The Username does not exists.")
+          );
         }
-      } else {
+      }catch(error){
+        console.error(error);
         return done(
           null,
           false,
-          req.flash("message", "The Username does not exists.")
+          req.flash("message", "An error ocurred: "+error)
         );
       }
+      
     }
   )
 );
